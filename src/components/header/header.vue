@@ -10,6 +10,7 @@
 	}
 </script>
 
-<style >
-	
+<style lang="stylus" rel="stylesheet/stylus" >
+	.header
+		text-align:center
 </style>
