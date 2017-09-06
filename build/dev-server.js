@@ -36,16 +36,19 @@ var apiRouter=express.Router();
 
 apiRouter.get('/a',function(req,res){
   res.json({
+    errno:0,
     data: seller
   });
 });
 apiRouter.get('/b',function(req,res){
   res.json({
+    errno:0,
     data:goods
   });
 });
 apiRouter.get('/c',function(req,res){
   res.json({
+    errno:0,
     data:ratings
   });
 });
