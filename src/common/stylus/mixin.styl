@@ -1,3 +1,4 @@
+// 这个是处理border在移动端出现的问题
 border-1px($color)
 	position:relative
 	&:after
@@ -8,3 +9,5 @@ border-1px($color)
 		width:100%
 		border-top:1px solid $color
 		content:''
+		
+// 解决图片在移动端的问题，因为不同移动端的dpr是不一样的，一般是2x或3x

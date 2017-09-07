@@ -34,7 +34,9 @@
 	}
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus" >
+<style lang="stylus" rel="stylesheet/stylus">
+// 千万要注意路径的问题
+@import '../../common/stylus/mixin.styl'
 	.header
 		background-color:#000
 		color:#fff
@@ -51,6 +53,7 @@
 			margin-top:2px
 			.brand
 				margin-right:6px
+				
 			.name
 				font-weight:bold
 				line-height:18px
@@ -64,8 +67,5 @@
 				font-weight:200px
 				line-height:12px
 				.reduce
-					margin-right:4px
-				
-				
-				
+					margin-right:4px				
 </style>
