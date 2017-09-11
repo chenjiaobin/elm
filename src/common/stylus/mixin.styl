@@ -11,3 +11,7 @@ border-1px($color)
 		content:''
 		
 // 解决图片在移动端的问题，因为不同移动端的dpr是不一样的，一般是2x或3x
+back-image($url)
+	background-image:url($url+"@2x.png")
+	@media (-webkit-min-device-pixel-ratio:3),(min-device-pixel-ratio:3)
+		background-image:url($url+"@3x.png")
