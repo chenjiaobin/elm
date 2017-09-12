@@ -38,7 +38,7 @@ export default {
       response=response.body;
       if(response.errno===Error_OK){
         this.sellers=response.data;
-        console.log(response.data);
+        // console.log(response.data);
       }
     })
   }
