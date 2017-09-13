@@ -52,7 +52,6 @@ export default {
       width:100%
       height:40px
       line-height:40px
-      // border-bottom:1px solid #ccc
       border-1px(#ccc)
       .tab-item
         flex:1

@@ -10,3 +10,13 @@
 		&::after
 			-webkit-transform:scaleY(0.5)
 			transform:scaleY(0.5)
+			
+.clearFix:after
+	content:'.'
+	display:block
+	clear:both
+	width:0
+	height:0
+	visibility:hidden
+.clearFix
+	zoom:1
