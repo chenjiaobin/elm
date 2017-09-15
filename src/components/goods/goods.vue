@@ -1,6 +1,6 @@
 <template>
 	<div class="goods">
-		<div class="menu">
+		<div class="menu" ref="menuWrapper">
 			<ul class="lists">
 				<li v-for="item in goods" class="list">
 					<span class="text">
@@ -10,7 +10,7 @@
 				</li>
 			</ul>
 		</div>
-		<div class="goods-item">
+		<div class="goods-item" ref="foodWrap">
 			<!-- 所有分类下的所有商品 -->
 			<div class="food" v-for="item in goods">
 				<!-- 分类标题 -->
@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import BScroll from 'better-scroll'
 const Error_OK=0;
 	export default {
 		data(){
@@ -55,9 +56,17 @@ const Error_OK=0;
 				response=response.body;
 				if(response.errno===Error_OK){
 					this.goods=response.data;
-					console.log(this.goods);
+					this.$nextTick(()=>{
+						this.initScroll();	
+					})
 				}
 			})
+		},
+		methods:{
+			initScroll(){
+				this.menuScorll=new BScroll(this.$refs.menuWrapper, {});
+				this.footerScroll=new BScroll(this.$refs.foodWrap,{})
+			}
 		}
 	}
 </script>
@@ -107,7 +116,6 @@ const Error_OK=0;
 		.goods-item
 			flex:1
 			width:100%
-			overflow:auto
 			.title
 				background-color:#f3f5f7
 				height:26px
@@ -137,7 +145,7 @@ const Error_OK=0;
 						margin:2px 0 0 0
 					.description,.sale
 						font-size:10px
-						line-height:10px
+						line-height:14px
 						color:rgb(147,153,159)
 						margin:8px 0
 					.new-price
@@ -156,13 +164,5 @@ const Error_OK=0;
 						color:rgb(147,153,159)
 						text-decoration:line-through
 						.doller
-							font-style:normal
-							
-							
-						
-						
-					
-						
-				
-				
+							font-style:normal			
 </style>
