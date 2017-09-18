@@ -2,35 +2,37 @@
 	<div class="goods">
 		<div class="menu" ref="menuWrapper">
 			<ul class="lists">
-				<li v-for="item in goods" class="list">
+				<li v-for="(item,index) in goods" class="list" :class="{'current':currentIndex===index}">
 					<span class="text">
 						<i v-if="item.type>0" class="icon" :class="classMap[item.type]"></i>
-						{{item.name}}
+						{{item.name}}{{index}}
 					</span>
 				</li>
 			</ul>
 		</div>
-		<div class="goods-item" ref="foodWrap">
-			<!-- 所有分类下的所有商品 -->
-			<div class="food" v-for="item in goods">
-				<!-- 分类标题 -->
-				<h1 class="title">{{item.name}}</h1>
-				<!-- 分类下的所有商品 -->
-				<div v-for="list in item.foods" class="food-item">
-					<!-- 每件商品对应的图片 -->
-					<a href="#" class="icon"><img :src='list.icon' alt="" width="57" height="57"></a>
-					<!-- 每件商品对应的信息 -->
-					<div class="good-info">
-						<p class="name">{{list.name}}</p>
-						<p class="description">{{list.description}}</p>
-						<p class="sale">
-							<span class="month-sale">月售{{list.sellCount}}份</span>
-							<span class="bullitin">好评率{{list.rating}}</span>
-						</p>
-						<p class="price">
-							<span class="new-price"><i class="doller">￥</i>{{list.price}}</span>
-							<span class="old-price" v-show="list.oldPrice"><i class="doller">￥</i>{{list.oldPrice}}</span>
-						</p>
+		<div ref="foodWrap">
+			<div class="goods-item" >
+				<!-- 所有分类下的所有商品 -->
+				<div class="food food-hook" v-for="item in goods" ref="foodHook">
+					<!-- 分类标题 -->
+					<h1 class="title">{{item.name}}</h1>
+					<!-- 分类下的所有商品 -->
+					<div v-for="list in item.foods" class="food-item">
+						<!-- 每件商品对应的图片 -->
+						<a href="#" class="icon"><img :src='list.icon' alt="" width="57" height="57"></a>
+						<!-- 每件商品对应的信息 -->
+						<div class="good-info">
+							<p class="name">{{list.name}}</p>
+							<p class="description">{{list.description}}</p>
+							<p class="sale">
+								<span class="month-sale">月售{{list.sellCount}}份</span>
+								<span class="bullitin">好评率{{list.rating}}</span>
+							</p>
+							<p class="price">
+								<span class="new-price"><i class="doller">￥</i>{{list.price}}</span>
+								<span class="old-price" v-show="list.oldPrice"><i class="doller">￥</i>{{list.oldPrice}}</span>
+							</p>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -47,7 +49,9 @@ const Error_OK=0;
 	export default {
 		data(){
 			return {
-				goods:{}
+				goods:{},
+				listHeight:[],
+				scrollY:0
 			}
 		},
 		created(){
@@ -57,17 +61,49 @@ const Error_OK=0;
 				if(response.errno===Error_OK){
 					this.goods=response.data;
 					this.$nextTick(()=>{
-						this.initScroll();	
+						this.initScroll();
+						this.calculateHeight();	
 					})
 				}
 			})
 		},
+		computed:{
+			currentIndex(){
+				for(let i=0;i<this.listHeight.length;i++){
+					// debugger;
+					let height1=this.listHeight[i];
+					let height2=this.listHeight[i+1];
+					if(this.scrollY>height1&&this.scrollY<height2){
+						// console.log(height1+"--"+height2+"--"+this.scrollY+"--"+i);
+						return i+1;
+					}
+
+				}
+				return 0;
+			}
+		},
 		methods:{
 			initScroll(){
 				this.menuScorll=new BScroll(this.$refs.menuWrapper, {});
-				this.footerScroll=new BScroll(this.$refs.foodWrap,{})
+				this.footerScroll=new BScroll(this.$refs.foodWrap,{
+					probeType:3
+				});
+				this.footerScroll.on('scroll',(pos)=>{
+					this.scrollY=Math.abs(Math.round(pos.y));
+				})
+			},
+			calculateHeight(){ 
+				let foodHook=this.$refs.foodHook;
+				let height=0;
+				for(let i=0;i<foodHook.length;i++){
+					let item=foodHook[i];
+					height+=item.clientHeight;
+					this.listHeight.push(height);
+				}
+				console.log(this.listHeight	);
 			}
-		}
+		},
+		
 	}
 </script>
 
@@ -90,6 +126,14 @@ const Error_OK=0;
 				height:54px
 				padding:0 12px
 				line-height:14px
+				&.current
+					background-color:#fff
+					font-size:700
+					position:relative
+					margin-top:-1px
+					z-index:10
+					.text
+						border-none()
 				.text
 					display:table-cell
 					font-size:12px
