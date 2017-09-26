@@ -236,7 +236,7 @@ import star from "../../components/star/star"
 			height:100%
 			background:rgba(7,17,27,0.8)
 			z-index:100
-			overflow:auto 
+			overflow:auto
 			.detailWrap
 				min-height:100%
 				.detailMain
