@@ -2,7 +2,7 @@
 	<div class="goods">
 		<div class="menu" ref="menuWrapper">
 			<ul class="lists">
-				<li v-for="(item,index) in goods" class="list" :class="{'current':currentIndex===index}">
+				<li v-for="(item,index) in goods" class="list" :class="{'current':currentIndex===index}" @click="changeFood(index)">
 					<span class="text">
 						<i v-if="item.type>0" class="icon" :class="classMap[item.type]"></i>
 						{{item.name}}{{index}}
@@ -10,8 +10,8 @@
 				</li>
 			</ul>
 		</div>
-		<div ref="foodWrap">
-			<div class="goods-item" >
+		<div ref="foodWrap" class="goods-item">
+			<div  >
 				<!-- 所有分类下的所有商品 -->
 				<div class="food food-hook" v-for="item in goods" ref="foodHook">
 					<!-- 分类标题 -->
@@ -84,7 +84,9 @@ const Error_OK=0;
 		},
 		methods:{
 			initScroll(){
-				this.menuScorll=new BScroll(this.$refs.menuWrapper, {});
+				this.menuScorll=new BScroll(this.$refs.menuWrapper, {
+					click:true
+				});
 				this.footerScroll=new BScroll(this.$refs.foodWrap,{
 					probeType:3
 				});
@@ -101,6 +103,9 @@ const Error_OK=0;
 					this.listHeight.push(height);
 				}
 				console.log(this.listHeight	);
+			},
+			changeFood(index){
+				console.log(index);
 			}
 		},
 		
