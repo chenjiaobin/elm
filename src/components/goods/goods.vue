@@ -2,11 +2,7 @@
 	<div class="goods">
 		<div class="menu" ref="menuWrapper">
 			<ul class="lists">
-<<<<<<< HEAD
-				<li v-for="(item,index) in goods" class="list" :class="{'current':currentIndex===index}" @click="changeFood(index)">
-=======
 				<li v-for="(item,index) in goods" class="list" :class="{'current':currentIndex===index}"  @click="changeFood(index,$event)">
->>>>>>> company
 					<span class="text">
 						<i v-if="item.type>0" class="icon" :class="classMap[item.type]"></i>
 						{{item.name}}
@@ -14,13 +10,8 @@
 				</li>
 			</ul>
 		</div>
-<<<<<<< HEAD
 		<div ref="foodWrap" class="goods-item">
 			<div  >
-=======
-		<div ref="foodWrap"  class="goods-item">
-			<div >
->>>>>>> company
 				<!-- 所有分类下的所有商品 -->
 				<div class="food food-hook" v-for="item in goods" >
 					<!-- 分类标题 -->
@@ -111,16 +102,8 @@ const Error_OK=0;
 		},
 		methods:{
 			initScroll(){
-<<<<<<< HEAD
-				this.menuScorll=new BScroll(this.$refs.menuWrapper, {
-					click:true
-				});
-				this.footerScroll=new BScroll(this.$refs.foodWrap,{
-					probeType:3
-=======
 				this.menuScorll=new BScroll(this.$refs.menuWrapper,{
 					click:true
->>>>>>> company
 				});
 				this.foodsScroll=new BScroll(this.$refs.foodWrap,{
 					probeType:3,
@@ -138,12 +121,6 @@ const Error_OK=0;
 					height+=item.clientHeight;
 					this.listHeight.push(height);
 				}
-<<<<<<< HEAD
-				console.log(this.listHeight	);
-			},
-			changeFood(index){
-				console.log(index);
-=======
 			},
 			changeFood(index,event){
 				if(!event._constructed){
@@ -161,7 +138,6 @@ const Error_OK=0;
 				this.$nextTick(()=>{
 					this.$refs.a.dropBall(target);
 				})
->>>>>>> company
 			}
 		},
 		components:{

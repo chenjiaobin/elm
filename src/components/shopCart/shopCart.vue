@@ -1,7 +1,7 @@
 <template>
 	<div class="shopCart">
-		<div class="content" @click="showFoodList">
-			<div class="shopCart-left">
+		<div class="content" >
+			<div class="shopCart-left" @click="showFoodList">
 				<div class="logo">
 					<div class="icon" :class="{'highLight':totalCount>0}">
 						<i class="icon-shopping_cart" :class="{'highLight':totalCount>0}"></i>
@@ -31,28 +31,31 @@
 					</transition>
 				</div>
 		</div>
-		<div class="food-list" v-show="show">
-			<div class="header clearFix">
-				<div class="title">购物车</div>
-				<div class="clear">清空</div>
-			</div>
-			<div class="content">
-				<ul class="list">
-					<li class="item clearFix" v-for="food in selectFood">
-						<div class="name">{{food.name}}</div>
-						<div class="right">
-							<div class="price"><i>￥</i>{{food.price*food.count}}</div>
-							<div class="cartControl-wrap">
-									<cartControl :food="food"></cartControl>	
+		<transition name="up">
+			<div class="food-list" v-show="show">
+				<div class="header clearFix">
+					<div class="title">购物车</div>
+					<div class="clear">清空</div>
+				</div>
+				<div class="content" ref="goodshow">
+					<ul class="list">
+						<li class="item clearFix" v-for="food in selectFood">
+							<div class="name">{{food.name}}</div>
+							<div class="right">
+								<div class="price"><i>￥</i>{{food.price*food.count}}</div>
+								<div class="cartControl-wrap">
+										<cartControl :food="food"></cartControl>	
+								</div>
 							</div>
-						</div>
-					</li>
-				</ul>
+						</li>
+					</ul>
+				</div>
 			</div>
-		</div>
+		</transition>
 	</div>
 </template>
 <script>
+import BScroll from 'better-scroll'
 import cartControl from "../cartControl/cartControl"
 	export default {
 		components:{
@@ -164,6 +167,18 @@ import cartControl from "../cartControl/cartControl"
 						return false;
 					}
 					let a=!this.flag;
+					if(a){
+						this.$nextTick(()=>{
+							if(!this.scroll){
+								this.scroll=new BScroll(this.$refs.goodshow,{
+									click:true
+								});
+							}else{
+								this.scroll.refresh();
+							}
+						})
+						
+					}
 					return a;
 			},
 			total(){
@@ -195,17 +210,18 @@ import cartControl from "../cartControl/cartControl"
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
 @import "../../common/stylus/basic.styl"
+@import "../../common/stylus/mixin.styl"
 	.shopCart
 		position:fixed
 		left:0
 		bottom:0
-		background:#141d27
 		width:100%
 		height:48px
 		z-index:50
 		.content
 			display:flex
 			font-size:0
+			background:#141d27
 			.shopCart-left
 				flex:1
 				.logo
@@ -292,9 +308,14 @@ import cartControl from "../cartControl/cartControl"
 		.food-list
 			position:absolute
 			left:0
-			top:-300px
+			top:0
 			width:100%
-			z-index:-10
+			z-index:-1
+			transform:translate3d(0,-100%,0)
+			&.up-enter-active,&.up-leave-active
+				transition:all 0.5s
+			&.up-enter,&.up-leave-active
+				transform:translate3d(0,0,0)
 			.header
 				background:#f3f5f7
 				border-bottom:1px solid rgba(7,17,27,0.1)
@@ -313,10 +334,14 @@ import cartControl from "../cartControl/cartControl"
 					margin-right:18px
 			.content
 				background:#fff
+				max-height:217px
+				overflow:hidden
 				.list
 					width:100%
+					height:100%
 					.item
 						margin:12px 18px
+						border-bottom:1px solid rgba(7,17,27,0.1)
 						.name
 							float:left
 							font-size:14px
