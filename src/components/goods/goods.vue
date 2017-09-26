@@ -2,18 +2,27 @@
 	<div class="goods">
 		<div class="menu" ref="menuWrapper">
 			<ul class="lists">
+<<<<<<< HEAD
 				<li v-for="(item,index) in goods" class="list" :class="{'current':currentIndex===index}" @click="changeFood(index)">
+=======
+				<li v-for="(item,index) in goods" class="list" :class="{'current':currentIndex===index}"  @click="changeFood(index,$event)">
+>>>>>>> company
 					<span class="text">
 						<i v-if="item.type>0" class="icon" :class="classMap[item.type]"></i>
-						{{item.name}}{{index}}
+						{{item.name}}
 					</span>
 				</li>
 			</ul>
 		</div>
+<<<<<<< HEAD
 		<div ref="foodWrap" class="goods-item">
 			<div  >
+=======
+		<div ref="foodWrap"  class="goods-item">
+			<div >
+>>>>>>> company
 				<!-- 所有分类下的所有商品 -->
-				<div class="food food-hook" v-for="item in goods" ref="foodHook">
+				<div class="food food-hook" v-for="item in goods" >
 					<!-- 分类标题 -->
 					<h1 class="title">{{item.name}}</h1>
 					<!-- 分类下的所有商品 -->
@@ -33,23 +42,31 @@
 								<span class="old-price" v-show="list.oldPrice"><i class="doller">￥</i>{{list.oldPrice}}</span>
 							</p>
 						</div>
+						<div class="control">
+							<cartControl @add="addFood" :food="list"></cartControl>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="footer">
-			
-		</div>
+		<shopCart ref="a"  :selectFood="selectFood" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></shopCart>
 	</div>
 </template>
 
 <script>
 import BScroll from 'better-scroll'
+import shopCart from "../shopCart/shopCart"
+import cartControl from "../cartControl/cartControl"
 const Error_OK=0;
 	export default {
+		props:{
+			seller:{
+				type:Object
+			}
+		},
 		data(){
 			return {
-				goods:{},
+				goods:[],
 				listHeight:[],
 				scrollY:0
 			}
@@ -63,6 +80,7 @@ const Error_OK=0;
 					this.$nextTick(()=>{
 						this.initScroll();
 						this.calculateHeight();	
+						// this.changeFood();
 					})
 				}
 			})
@@ -70,49 +88,90 @@ const Error_OK=0;
 		computed:{
 			currentIndex(){
 				for(let i=0;i<this.listHeight.length;i++){
-					// debugger;
 					let height1=this.listHeight[i];
 					let height2=this.listHeight[i+1];
-					if(this.scrollY>height1&&this.scrollY<height2){
-						// console.log(height1+"--"+height2+"--"+this.scrollY+"--"+i);
+					if(this.scrollY>=height1 && this.scrollY<height2){
 						return i+1;
 					}
 
 				}
 				return 0;
+			},
+			selectFood(){
+				let foods=[];
+				this.goods.forEach((good)=>{
+					good.foods.forEach((food)=>{
+						if(food.count){
+							foods.push(food);
+						}
+					})
+				})
+				return foods;
 			}
 		},
 		methods:{
 			initScroll(){
+<<<<<<< HEAD
 				this.menuScorll=new BScroll(this.$refs.menuWrapper, {
 					click:true
 				});
 				this.footerScroll=new BScroll(this.$refs.foodWrap,{
 					probeType:3
+=======
+				this.menuScorll=new BScroll(this.$refs.menuWrapper,{
+					click:true
+>>>>>>> company
 				});
-				this.footerScroll.on('scroll',(pos)=>{
+				this.foodsScroll=new BScroll(this.$refs.foodWrap,{
+					probeType:3,
+					click:true
+				});
+				this.foodsScroll.on('scroll',(pos)=>{
 					this.scrollY=Math.abs(Math.round(pos.y));
 				})
 			},
 			calculateHeight(){ 
-				let foodHook=this.$refs.foodHook;
+				let foodHook=this.$refs.foodWrap.getElementsByClassName("food-hook");
 				let height=0;
 				for(let i=0;i<foodHook.length;i++){
 					let item=foodHook[i];
 					height+=item.clientHeight;
 					this.listHeight.push(height);
 				}
+<<<<<<< HEAD
 				console.log(this.listHeight	);
 			},
 			changeFood(index){
 				console.log(index);
+=======
+			},
+			changeFood(index,event){
+				if(!event._constructed){
+					return;
+				}
+				// 不要直接在纸标签上使用ref，要是这样的话点击的时候回出现问题
+				let foodList=this.$refs.foodWrap.getElementsByClassName("food-hook");//
+				let el=foodList[index];
+				this.foodsScroll .scrollToElement(el,300);
+			},
+			addFood(target){
+				this.drop(target);
+			},
+			drop(target){
+				this.$nextTick(()=>{
+					this.$refs.a.dropBall(target);
+				})
+>>>>>>> company
 			}
 		},
-		
+		components:{
+			"shopCart":shopCart,
+			"cartControl":cartControl
+		}
 	}
 </script>
 
-<style lang="stylus" rel="relstylus/stylus">
+<style lang="stylus" rel="stylesheet/stylus">
 @import '../../common/stylus/mixin.styl'
 	.goods
 		display:flex
@@ -184,7 +243,7 @@ const Error_OK=0;
 					display:inline-block
 					width:57px
 					height:57px
-				.good-info
+			  .good-info
 					flex:1
 					margin-left:10px
 					.name
@@ -214,4 +273,9 @@ const Error_OK=0;
 						text-decoration:line-through
 						.doller
 							font-style:normal			
+				.control
+					position:absolute
+					right:0
+					bottom:0
+				
 </style>

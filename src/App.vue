@@ -16,7 +16,7 @@
       <router-link to="/sellers" class="tab-item">商家</router-link>  
     </div>
     <!-- 这个是视图的输出位置，也就是路由的输出页面 -->
-    <router-view></router-view>
+    <router-view :seller="sellers"></router-view>
   </div>
 </template>
 
