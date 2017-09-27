@@ -35,7 +35,7 @@
 			<div class="food-list" v-show="show">
 				<div class="header clearFix">
 					<div class="title">购物车</div>
-					<div class="clear">清空</div>
+					<div class="clear" @click="empty">清空</div>
 				</div>
 				<div class="content" ref="goodshow">
 					<ul class="list">
@@ -51,6 +51,9 @@
 					</ul>
 				</div>
 			</div>
+		</transition>
+		<transition name="fade">
+			<div class="mark" v-show="show" @click="showFoodList"></div>
 		</transition>
 	</div>
 </template>
@@ -85,6 +88,11 @@ import cartControl from "../cartControl/cartControl"
 			}
 		},
 		methods:{
+			empty(){
+				this.selectFood.forEach((food)=>{
+					food.count=0;
+				})
+			},
 			showFoodList(){
 					if(!this.total){
 							return;
@@ -363,6 +371,18 @@ import cartControl from "../cartControl/cartControl"
 							.cartControl-wrap
 								display:inline-block
 								margin-top:-6px
-
-			
+		.mark
+			position:fixed
+			top:0
+			left:0
+			width:100%
+			height:100%
+			background:rgba(7,17,27,0.6)
+			backdrop-filter:blur(10px)
+			z-index:-4
+			&.fade-enter-active,&fade-leave-active
+				transition:all 0.5s
+			&.fade-enter,&fade-leave-active
+				opacity:0
+				background:rgba(7,17,27,0.6)
 </style>

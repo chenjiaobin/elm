@@ -11,13 +11,13 @@
 			</ul>
 		</div>
 		<div ref="foodWrap" class="goods-item">
-			<div  >
+			<div>
 				<!-- 所有分类下的所有商品 -->
 				<div class="food food-hook" v-for="item in goods" >
 					<!-- 分类标题 -->
 					<h1 class="title">{{item.name}}</h1>
 					<!-- 分类下的所有商品 -->
-					<div v-for="list in item.foods" class="food-item">
+					<div v-for="list in item.foods" class="food-item" @click="mySelectDetail(list,$event)">
 						<!-- 每件商品对应的图片 -->
 						<a href="#" class="icon"><img :src='list.icon' alt="" width="57" height="57"></a>
 						<!-- 每件商品对应的信息 -->
@@ -41,6 +41,7 @@
 			</div>
 		</div>
 		<shopCart ref="a"  :selectFood="selectFood" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></shopCart>
+	 <foodDetail @add="addFood" :food="mySelect" ref="detailShow"></foodDetail>
 	</div>
 </template>
 
@@ -48,6 +49,7 @@
 import BScroll from 'better-scroll'
 import shopCart from "../shopCart/shopCart"
 import cartControl from "../cartControl/cartControl"
+import foodDetail from "../foodDetail/foodDetail"
 const Error_OK=0;
 	export default {
 		props:{
@@ -59,7 +61,8 @@ const Error_OK=0;
 			return {
 				goods:[],
 				listHeight:[],
-				scrollY:0
+				scrollY:0,
+				mySelect:{}
 			}
 		},
 		created(){
@@ -101,6 +104,13 @@ const Error_OK=0;
 			}
 		},
 		methods:{
+			mySelectDetail(list,event){
+				if(!event._constructed){
+					return;
+				}
+				this.mySelect=list;
+				this.$refs.detailShow.show();
+			},
 			initScroll(){
 				this.menuScorll=new BScroll(this.$refs.menuWrapper,{
 					click:true
@@ -142,7 +152,8 @@ const Error_OK=0;
 		},
 		components:{
 			"shopCart":shopCart,
-			"cartControl":cartControl
+			"cartControl":cartControl,
+			"foodDetail":foodDetail
 		}
 	}
 </script>
@@ -252,6 +263,6 @@ const Error_OK=0;
 				.control
 					position:absolute
 					right:0
-					bottom:0
+					bottom:10px
 				
 </style>
