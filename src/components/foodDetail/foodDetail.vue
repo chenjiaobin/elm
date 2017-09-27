@@ -20,7 +20,7 @@
 							<cartControl :food="food"></cartControl>
 						</div>
 						<transition name="fade">
-							<div class="addCart" @click="addFirst" v-show="!food.count||food.count==0">加入购物车</div>
+							<div class="addCart" @click.stop.prevent="addFirst" v-show="!food.count||food.count==0">加入购物车</div>
 						</transition>
 					</div>
 					<split></split>
@@ -29,6 +29,17 @@
 						<p class="infos">{{food.info}}</p>
 					</div>
 					<split></split>
+					<div>dfsdfsaf</div>
+					<div>dfsdfsaf</div>
+					<div>dfsdfsaf</div>
+					<div>dfsdfsaf</div>
+					<div>dfsdfsaf</div>
+					<div>dfsdfsaf</div>
+					<div>dfsdfsaf</div>
+					<div>dfsdfsaf</div>
+					<div>dfsdfsaf</div>
+
+					<div>dfsdfsaf</div><div>dfsdfsaf</div>
 			</div>
 		</div>
 	</transition>
