@@ -20,7 +20,7 @@
 							<cartControl :food="food"></cartControl>
 						</div>
 						<transition name="fade">
-							<div class="addCart" @click.stop.prevent="addFirst" v-show="!food.count||food.count==0">加入购物车</div>
+							<div class="addCart" @click="addFirst" v-show="!food.count||food.count==0">加入购物车</div>
 						</transition>
 					</div>
 					<split></split>
@@ -65,7 +65,6 @@ import split from "../split/split"
 				if(!event._constructed){
 					return;
 				}
-				console.log(event.target);
 				this.$emit('add',event.target);
 				Vue.set(this.food,'count',1);
 			},
