@@ -2,15 +2,6 @@
   <div >
     <v-header :sellers="sellers"></v-header>
     <div class="tab border-1px">
-      <!-- <div class="tab-item">
-        <a v-link="{path:'/goods'}">商品</a>
-      </div>
-      <div class="tab-item">
-        <a v-link="{path:'/ratings'}">评论</a>
-      </div>
-      <div class="tab-item">
-        <a v-link="{path:'/sellers'}">商家</a>
-      </div>  -->
       <router-link to="/goods" class="tab-item">商品</router-link>
       <router-link to="/ratings" class="tab-item">评论</router-link>
       <router-link to="/sellers" class="tab-item">商家</router-link>  
