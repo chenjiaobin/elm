@@ -67,7 +67,7 @@ const Error_OK=0;
 		},
 		created(){
 			this.classMap=['decrease','discount','guarantee','invoice','special'];
-			this.$http.get('api/b').then((response)=>{
+			this.$http.get('https://www.easy-mock.com/mock/5a2d323b73225d015a529609/chenjiaobin/goods').then((response)=>{
 				response=response.body;
 				if(response.errno===Error_OK){
 					this.goods=response.data;
