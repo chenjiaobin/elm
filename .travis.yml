@@ -1,0 +1,23 @@
+
+language: node_js
+
+node_js:
+  - "node"
+
+env:
+  global:
+    secure: EcZq+VkrKOHXvefCpPPI+vu/3PSyt6r1S/nF7JeV7Zp1Cx6jmeQTQNUGvUmcgPEjmo6EGoe2x7XmeNEmUl+S8B6a9xqR8oA0uywyRMvNQ9gVORgc5gmqw83F7qmDgUhpripq6zzWcgWrp9pncsgFUPzFcqmRMNjuHfUmipW0KPWzdwXYZQPv3WOG9asf8yHsmNQDZjK62/TOmmDyImWMndDAL6FPyT9iYUn1I98mib82OFdUiGtW6JlSfOjtvF5qLaGifrQckpSwSixA9vImNbA6Wj5IDtISVyuOUgLPbJQpXjQHTgglq2rYpVEaWPpTnclN9+ukfVSMt0xLurWO0kAd7iiGv1hYxx+3jODJcqKKXScJFQ5AtVqgykLbPW6a4LOwa5TSodUhr0CLxnEmUyitPyoETle1cRPIsRRa1mMcqe1ZQt3mkSKWEU8oBCG722Q2KpY/Z39wdQxci9Krppnemkx0hypS57kv4ZXjyDgL4IKm2SFAJWZx/3l68Vy0GwDCIulbPx+0gfQzjjc8YU1He52/ohETncWVxBjmhGBCSXeRdsQxCh0WS8fnTDdntxoDIzl6K84jS29WsduDTvQY7km639SiYO74KGqGPnD17oNrFE4adj7Vd21q2LGL8kYu9chTsRu0kHj5KZcpmSWTdEt0kUTnHfUEBgo3SWM=
+
+install:
+  - npm install
+
+script:
+  - npm run build
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  local_dir: dist
+  github_token: $GH_TOKEN
+  on:
+    branch: master
