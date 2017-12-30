@@ -34,12 +34,10 @@ export default {
     }
   },
   created(){
-    this.$http.get('/api/a?id='+this.sellers.id).then( (response) =>{
+     this.$http.get('https://www.easy-mock.com/mock/5a2d323b73225d015a529609/chenjiaobin/seller').then( (response) =>{
       response=response.body;
-      if(response.errno===Error_OK){
         // this.sellers=response.data;
-        this.sellers=Object.assign({},this.sellers,response.data);
-      }
+        this.sellers=Object.assign({},this.sellers,response.seller);
     })
   }
 }
