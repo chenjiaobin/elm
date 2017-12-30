@@ -69,14 +69,15 @@ const Error_OK=0;
 			this.classMap=['decrease','discount','guarantee','invoice','special'];
 			this.$http.get('https://www.easy-mock.com/mock/5a2d323b73225d015a529609/chenjiaobin/goods').then((response)=>{
 				response=response.body;
-				if(response.errno===Error_OK){
-					this.goods=response.data;
+					this.goods=response.goods;
+					console.log(this.goods);
 					this.$nextTick(()=>{
 						this.initScroll();
 						this.calculateHeight();	
 						// this.changeFood();
 					})
-				}
+			}).catch(function(error){
+				console.log(error);
 			})
 		},
 		computed:{

@@ -21,7 +21,6 @@
 		</div>
 		<div class="ballContain">
 				<div v-for="ball in balls">
-				 
 					<transition name="drop" @before-enter="beforeDrop" @enter="dropping" @after-enter="afterDrop">
 					<!-- 外层动画 -->
 						<div class="ball" v-show="ball.show">
@@ -185,7 +184,6 @@ import cartControl from "../cartControl/cartControl"
 								this.scroll.refresh();
 							}
 						})
-						
 					}
 					return a;
 			},

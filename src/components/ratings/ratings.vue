@@ -105,16 +105,14 @@ const ALL=2;
 			}
 		},
 		created(){
-			this.$http.get('/api/c').then((respone)=>{
+			this.$http.get('https://www.easy-mock.com/mock/5a2d323b73225d015a529609/chenjiaobin/ratings').then((respone)=>{
 				respone=respone.body;
-				if(respone.errno===ERRO_OK){
-					this.rate=respone.data;
+					this.rate=respone.ratings;
 					this.$nextTick(()=>{
 						this.scroll=new BScroll(this.$refs.re,{
 							click:true
 						})
 					})
-				}
 			})
 		},
 		components:{

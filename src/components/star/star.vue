@@ -9,7 +9,6 @@
 		const Vhalf="half";
 		const Voff="off";
 	export default {
-		
 		props:{
 			size:{
 				type:Number
