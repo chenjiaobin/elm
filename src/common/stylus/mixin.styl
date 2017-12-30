@@ -1,0 +1,19 @@
+// 这个是处理border在移动端出现的问题
+border-1px($color)
+	position:relative
+	&:after
+		display:block
+		position:absolute
+		left:0
+		bottom:0
+		width:100%
+		border-top:1px solid $color
+		content:''
+border-none()
+	&:after
+		border:none	
+// 解决图片在移动端的问题，因为不同移动端的dpr是不一样的，一般是2x或3x
+back-image($url)
+	background-image:url($url+"@2x.png")
+	@media (-webkit-min-device-pixel-ratio:3),(min-device-pixel-ratio:3)
+		background-image:url($url+"@3x.png")

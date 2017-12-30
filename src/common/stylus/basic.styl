@@ -1,0 +1,22 @@
+// 这是一个使用media query解决移动端边框问题的样式文件
+@media (-webkit-min-device-pixel-ratio:1.5),(min-device-pixel-ratio:1.5)
+	.border-1px
+		&::after
+			-webkit-transform:scaleY(0.7)
+			transform:scaleY(0.7)
+
+@media (-webkit-min-device-pixel-ratio:2),(min-device-pixel-ratio:2)
+	.border-1px
+		&::after
+			-webkit-transform:scaleY(0.5)
+			transform:scaleY(0.5)
+			
+.clearFix:after
+	content:'.'
+	display:block
+	clear:both
+	width:0
+	height:0
+	visibility:hidden
+.clearFix
+	zoom:1
