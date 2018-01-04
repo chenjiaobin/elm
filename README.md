@@ -1,6 +1,9 @@
 # elm
 
 > 这是一个仿饿了么webApp
+> 访问[地址](https://chenjiaobin.github.io/elm/)
+> 二维码访问
+![饿了么](https://raw.githubusercontent.com/chenjiaobin/elm/master/resource/1515046300.png)
 
 ## 这个webApp用到的技术
 1、vue2.0相关语法以及
