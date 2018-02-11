@@ -6,15 +6,28 @@
 ![饿了么](https://raw.githubusercontent.com/chenjiaobin/elm/master/resource/1515046300.png)
 
 ## 这个webApp用到的技术
-1、vue2.0相关语法以及
-2、脚手架工具的使用
-3、webpack
-4、stylus的使用
-5、对项目的框架结构的搭建
-6、单页面应用
-7、路由
-8、better-scroll的使用
-9、mock数据
+1. vue2.0相关语法以及
+2. 脚手架工具的使用
+3. webpack
+4. stylus的使用
+5. 对项目的框架结构的搭建
+6. 单页面应用
+7. 路由
+8. better-scroll的使用
+9. mock数据
+## 项目中用到的相关库的介绍
+1. vue-resoure做后端数据交互ajax
+2. vue-router前端路由实现单页应用
+3. 列表滚动主要是通过第三方库better-scroll
+4. 收藏的功能是通过h5的缓存方式localstorage
+5. stick footer的技术，就是页面底部当文档高度没有达到页面高度(浏览器高度)的时候，页面底部会在最底部,如果文档高度超过浏览器高度底部就是在文档底部
+6. flex弹性布局
+7. 移动端1像素问题
+### 科普
+> 关于drp的科普:
+window.devicePixelRatio是设备上物理像素和设备独立像素(device-independent pixels (dips))的比例。公式表示就是：window.devicePixelRatio = 物理像素 / dips
+1. 非视网膜屏幕的iphone上，屏幕物理像素320像素，独立像素也是320像素，因此，window.devicePixelRatio等于1.
+2. 在视网膜屏幕的iphone上，屏幕物理像素640像素，独立像素还是320像素，因此，window.devicePixelRatio等于2.
 ## 使用这个项目的说明
 # 安装依赖
 > npm install
