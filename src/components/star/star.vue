@@ -34,7 +34,7 @@
 					if(hasDecimal){
 						items.push(Vhalf);
 					}
-					if(items.length<5){
+					while(items.length<Len){
 						items.push(Voff);
 					}
 					return items;
