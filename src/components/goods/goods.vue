@@ -105,6 +105,13 @@ const Error_OK=0;
 			}
 		},
 		methods:{
+			//在menuWrapper中点击，在pc端点击会出现两次事件(touch,click)，在移动端就只出现一次
+			//原因：betterScroll会监听事件(例如touchmove,click)并且阻止默认事件,并且他指挥监听移动端的，pc端的没有监听，所以在pc页面上bscroll也派发了一次click事件,原生也派发了一次click事件
+			//解决:bscroll的事件有_constructed:true,pc的事件中没有，所以我们可以通过_constructed这个来判断我们事件pc端点击还是在手机端点击
+			//bsScroll的事件,有_constructed: true
+			// MouseEvent {isTrusted: false, _constructed: true, screenX: 0, screenY: 0, clientX: 0…}
+			//pc的事件
+			// MouseEvent {isTrusted: true, screenX: -1867, screenY: 520, clientX: 53, clientY: 400…}
 			mySelectDetail(list,event){
 				if(!event._constructed){
 					return;
@@ -114,10 +121,10 @@ const Error_OK=0;
 			},
 			initScroll(){
 				this.menuScorll=new BScroll(this.$refs.menuWrapper,{
-					click:true
+					click:true//是否将click事件传递，默认被拦截了
 				});
 				this.foodsScroll=new BScroll(this.$refs.foodWrap,{
-					probeType:3,
+					probeType:3,//结合bsscroll接口使用，3是实时派发scroll事件
 					click:true
 				});
 				this.foodsScroll.on('scroll',(pos)=>{
@@ -140,6 +147,7 @@ const Error_OK=0;
 				// 不要直接在纸标签上使用ref，要是这样的话点击的时候回出现问题
 				let foodList=this.$refs.foodWrap.getElementsByClassName("food-hook");//
 				let el=foodList[index];
+				//类似于jump to的功能，通过这个方法跳转到指定的dom
 				this.foodsScroll .scrollToElement(el,300);
 			},
 			addFood(target){

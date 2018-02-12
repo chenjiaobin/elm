@@ -15,7 +15,7 @@
 					<div class="desc">另需配送费￥{{deliveryPrice}}元</div>
 				</div>
 			</div>
-			<div class="shopCart-right" :class="this.total<this.minPrice?'not-enough':'enough'">
+			<div class="shopCart-right" :class="this.total<this.minPrice?'not-enough':'enough'" @click="pay">
 				<p>{{payDesc}}</p>
 			</div>
 		</div>
@@ -87,6 +87,12 @@ import cartControl from "../cartControl/cartControl"
 			}
 		},
 		methods:{
+			pay(){
+				if(this.total<this.minPrice){
+					return ;
+				}
+				window.alert(`下单成功，您支付了${{this.total}}元`);
+			},
 			empty(){
 				this.selectFood.forEach((food)=>{
 					food.count=0;

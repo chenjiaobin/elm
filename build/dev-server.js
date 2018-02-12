@@ -20,24 +20,24 @@ var autoOpenBrowser = !!config.dev.autoOpenBrowser
 // https://github.com/chimurai/http-proxy-middleware
 var proxyTable = config.dev.proxyTable
 
-var app = express()
+var app = express()//实例化express
 
 // 调取json数据
-var appData=require('../data.json');
-var seller=appData.seller;
-var goods=appData.goods;
-var ratings=appData.ratings;
+var appData=require('../data.json');//引入测试数据
+var seller=appData.seller;//获取到商店的信息
+var goods=appData.goods;//获取到商品的信息
+var ratings=appData.ratings;//获取到评价的信息
 
 
 
 // 编写路由
-var apiRouter=express.Router();
+var apiRouter=express.Router();//生成express的路由
 // 写接口
-
-apiRouter.get('/a',function(req,res){
-  res.json({
-    errno:0,
-    data: seller
+//下面这一段是通过express模拟出服务器接口返回数据
+apiRouter.get('/a',function(req,res){//express的路由写法
+  res.json({//返回的json数据
+    errno:0,//返回的数据的结构，这个errno是用来判断时候正常返回了数据
+    data: seller//这个就是我们返回的真实数据
   });
 });
 apiRouter.get('/b',function(req,res){
@@ -53,7 +53,7 @@ apiRouter.get('/c',function(req,res){
   });
 });
 
-// 调用api
+// 调用apiRouter
 app.use('/api',apiRouter)
 // app.use(require('connect-history-api-fallback')())
 
