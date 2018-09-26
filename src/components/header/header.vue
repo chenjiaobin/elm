@@ -1,7 +1,7 @@
 <template>
 	<div class="header">
 		<div class="content-tragger">
-			<div class="avatar">
+			<div class="avatar" v-intro="'商家图标'" v-intro-step="1">
 				<img width="64" height="64" :src="sellers.avatar" alt="商家图标">
 			</div>
 
@@ -23,8 +23,8 @@
 				</div>
 			</div>
 			<!-- header头部折扣按钮 -->
-			<div class="supports-count" v-if="sellers.supports" @click="showDetail">
-				<span class="count">{{sellers.supports.length}}个</span>
+			<div class="supports-count"  @click="showDetail" v-intro="'商店优惠信息'" v-intro-step="2">
+				<span class="count" v-if="sellers.supports">{{sellers.supports.length}}个</span>
 				<span class="icon-keyboard_arrow_right"></span>
 			</div>
 		</div>
@@ -79,6 +79,7 @@
 
 <script>
 import star from "../../components/star/star"
+
 	export default {
 		// props是用来将父组件的内容传递给子组件用的
 		props : {
