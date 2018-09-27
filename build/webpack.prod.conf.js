@@ -94,7 +94,7 @@ var webpackConfig = merge(baseWebpackConfig, {
       }
     ]),
     new webpack.ProvidePlugin({
-      introJS: ['intro.js', 'introJs']
+      introJs: ['intro.js', 'introJs']
     })
   ]
 })
